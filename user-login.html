@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Login - GYM PRO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 420px;
+      padding: 40px 32px;
+      box-shadow: var(--shadow-main);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .login-header .brand-icon {
+      margin: 0 auto 16px auto;
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    }
+
+    .login-header h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .login-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    .back-link:hover {
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <h2>Member Portal</h2>
+        <p>Log in with your Email or Registered Phone</p>
+      </div>
+
+      <div id="alertBanner" class="alert-banner error"></div>
+
+      <form id="memberLoginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginIdentifier">Email or Phone Number</label>
+          <input type="text" id="loginIdentifier" class="form-control" placeholder="e.g. alex@example.com or 9876543210" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="memberPassword">Password</label>
+          <input type="password" id="memberPassword" class="form-control" placeholder="Enter Password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 10px; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);">
+          Access Member Dashboard &rarr;
+        </button>
+      </form>
+
+      <div style="text-align: center;">
+        <a href="role.html" class="back-link">
+          &larr; Back to Role Selection
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('memberLoginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const identifier = document.getElementById('loginIdentifier').value.trim();
+      const pass = document.getElementById('memberPassword').value.trim();
+      const alertBanner = document.getElementById('alertBanner');
+
+      const members = window.DB.get(window.DB.KEYS.MEMBERS);
+
+      // Search matching member by email OR phone
+      const matchedMember = members.find(m => 
+        (m.email && m.email.toLowerCase() === identifier.toLowerCase()) || 
+        (m.phone && m.phone === identifier)
+      );
+
+      if (!matchedMember) {
+        alertBanner.textContent = 'No member found matching that Email or Phone number.';
+        alertBanner.classList.add('error');
+        return;
+      }
+
+      if (matchedMember.password !== pass) {
+        alertBanner.textContent = 'Incorrect password. Please verify and try again.';
+        alertBanner.classList.add('error');
+        return;
+      }
+
+      // Successful Member Login
+      localStorage.setItem('loggedInMember', JSON.stringify(matchedMember));
+      localStorage.setItem('loggedInRole', 'user');
+      window.location.href = 'user.html';
+    });
+  </script>
+</body>
+</html>

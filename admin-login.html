@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - GYM PRO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 420px;
+      padding: 40px 32px;
+      box-shadow: var(--shadow-main);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .login-header .brand-icon {
+      margin: 0 auto 16px auto;
+    }
+
+    .login-header h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .login-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    .back-link:hover {
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h2>Admin Authentication</h2>
+        <p>Enter your administrative credentials</p>
+      </div>
+
+      <div id="alertBanner" class="alert-banner error"></div>
+
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <label class="form-label" for="adminId">Admin ID</label>
+          <input type="text" id="adminId" class="form-control" placeholder="Enter Admin ID" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="adminPassword">Password</label>
+          <input type="password" id="adminPassword" class="form-control" placeholder="Enter Password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 10px;">
+          Log In to Dashboard &rarr;
+        </button>
+      </form>
+
+      <div style="text-align: center;">
+        <a href="role.html" class="back-link">
+          &larr; Back to Role Selection
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const id = document.getElementById('adminId').value.trim();
+      const pass = document.getElementById('adminPassword').value.trim();
+      const alertBanner = document.getElementById('alertBanner');
+
+      if (id === 'admin' && pass === 'admin123') {
+        localStorage.setItem('loggedInRole', 'admin');
+        window.location.href = 'dashboard.html';
+      } else {
+        alertBanner.textContent = 'Invalid Admin ID or Password. Please try again.';
+        alertBanner.classList.add('error');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Records - GYM PRO</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">GP</div>
+          <div class="brand-text">GYM <span>PRO</span></div>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="members.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+          <span class="nav-text">Members</span>
+        </a>
+        <a href="plans.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span class="nav-text">Plans / Membership</span>
+        </a>
+        <a href="payments.html" class="nav-item active">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          <span class="nav-text">Payments</span>
+        </a>
+        <a href="workout.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 11v2M22 11v2"></path></svg>
+          <span class="nav-text">Workout</span>
+        </a>
+        <a href="diet.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+          <span class="nav-text">Diet</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span class="nav-text">Reports</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="window.Auth.logout()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span class="logout-text">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h1 id="pageTitle" class="page-title">Payment Management</h1>
+        <div class="user-profile-badge">
+          <div id="topBarAvatar" class="avatar">A</div>
+          <div class="user-info-text">
+            <div id="topBarUserName" class="user-name">Administrator</div>
+            <div id="topBarUserRole" class="user-role">System Admin</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="toolbar">
+          <div class="search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by member name, plan or receipt ID..." oninput="renderPayments()">
+          </div>
+
+          <button class="btn btn-primary" onclick="openPaymentModal()">
+            + Record New Payment
+          </button>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Receipt ID</th>
+                  <th>Member Name</th>
+                  <th>Plan Purchased</th>
+                  <th>Amount</th>
+                  <th>Payment Date</th>
+                  <th>Status</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="paymentsTableBody">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- RECORD PAYMENT MODAL -->
+  <div id="paymentModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Record Payment Receipt</h3>
+        <button class="close-modal" onclick="closePaymentModal()">&times;</button>
+      </div>
+
+      <form id="paymentForm">
+        <div class="form-group">
+          <label class="form-label" for="payMember">Select Member</label>
+          <select id="payMember" class="form-control" required onchange="onMemberSelectChange()">
+            <!-- Options populated dynamically -->
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="payPlan">Plan Name</label>
+            <input type="text" id="payPlan" class="form-control" placeholder="Plan Name" required readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payAmount">Amount (₹)</label>
+            <input type="number" id="payAmount" class="form-control" placeholder="999" required min="0">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="payDate">Payment Date</label>
+            <input type="date" id="payDate" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payStatus">Payment Status</label>
+            <select id="payStatus" class="form-control" required>
+              <option value="Paid">Paid</option>
+              <option value="Pending">Pending</option>
+              <option value="Overdue">Overdue</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+          <button type="button" class="btn btn-secondary" onclick="closePaymentModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Receipt</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    window.Auth.requireAdmin();
+    window.Auth.updateTopBar('Payment Management');
+
+    function renderPayments() {
+      const payments = window.DB.get(window.DB.KEYS.PAYMENTS);
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+
+      const filtered = payments.filter(p => 
+        (p.member || '').toLowerCase().includes(query) ||
+        (p.plan || '').toLowerCase().includes(query) ||
+        (p.id || '').toLowerCase().includes(query)
+      );
+
+      const tbody = document.getElementById('paymentsTableBody');
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="empty-state">No payment receipts found</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(p => `
+        <tr>
+          <td><strong>${p.id || 'PAY-N/A'}</strong></td>
+          <td>${p.member}</td>
+          <td>${p.plan}</td>
+          <td style="font-weight: 700; color: var(--accent-blue);">₹${Number(p.amount).toLocaleString('en-IN')}</td>
+          <td>${p.date}</td>
+          <td>
+            <span class="badge ${ (p.status || 'Paid').toLowerCase() === 'paid' ? 'badge-paid' : 'badge-pending' }">
+              ${p.status || 'Paid'}
+            </span>
+          </td>
+          <td style="text-align: right;">
+            <button class="btn btn-danger btn-sm" onclick="deletePayment('${p.id}')">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openPaymentModal() {
+      const members = window.DB.get(window.DB.KEYS.MEMBERS);
+      const select = document.getElementById('payMember');
+
+      if (members.length === 0) {
+        alert('Please create a member first before recording payments.');
+        return;
+      }
+
+      select.innerHTML = members.map(m => `<option value="${m.name}" data-plan="${m.plan}">${m.name} (${m.plan})</option>`).join('');
+      document.getElementById('payDate').value = new Date().toISOString().split('T')[0];
+      onMemberSelectChange();
+
+      document.getElementById('paymentModal').classList.add('show');
+    }
+
+    function onMemberSelectChange() {
+      const select = document.getElementById('payMember');
+      const selectedOpt = select.options[select.selectedIndex];
+      const planName = selectedOpt.getAttribute('data-plan') || 'Basic Plan';
+      document.getElementById('payPlan').value = planName;
+
+      const plans = window.DB.get(window.DB.KEYS.PLANS);
+      const matchedPlan = plans.find(p => p.name === planName);
+      if (matchedPlan) {
+        document.getElementById('payAmount').value = matchedPlan.price;
+      } else {
+        document.getElementById('payAmount').value = 999;
+      }
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal').classList.remove('show');
+    }
+
+    function deletePayment(id) {
+      if (confirm('Delete this payment record?')) {
+        let payments = window.DB.get(window.DB.KEYS.PAYMENTS);
+        payments = payments.filter(p => p.id !== id);
+        window.DB.set(window.DB.KEYS.PAYMENTS, payments);
+        renderPayments();
+      }
+    }
+
+    document.getElementById('paymentForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let payments = window.DB.get(window.DB.KEYS.PAYMENTS);
+
+      const payObj = {
+        id: 'PAY-' + Math.floor(1000 + Math.random() * 9000),
+        member: document.getElementById('payMember').value,
+        plan: document.getElementById('payPlan').value,
+        amount: Number(document.getElementById('payAmount').value),
+        date: document.getElementById('payDate').value,
+        status: document.getElementById('payStatus').value
+      };
+
+      payments.unshift(payObj);
+      window.DB.set(window.DB.KEYS.PAYMENTS, payments);
+      closePaymentModal();
+      renderPayments();
+    });
+
+    renderPayments();
+  </script>
+</body>
+</html>

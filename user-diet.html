@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Diet Plan - GYM PRO</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- MEMBER SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="user.html" class="brand-logo">
+          <div class="brand-icon">GP</div>
+          <div class="brand-text">GYM <span>PRO</span></div>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="user.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="user-profile.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span class="nav-text">My Profile</span>
+        </a>
+        <a href="user-membership.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span class="nav-text">Membership</span>
+        </a>
+        <a href="user-workout.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 11v2M22 11v2"></path></svg>
+          <span class="nav-text">My Workout</span>
+        </a>
+        <a href="user-diet.html" class="nav-item active">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+          <span class="nav-text">My Diet</span>
+        </a>
+        <a href="user-progress.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+          <span class="nav-text">My Progress</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="window.Auth.logout()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span class="logout-text">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h1 id="pageTitle" class="page-title">My 7-Day Nutrition Plan</h1>
+        <div class="user-profile-badge">
+          <div id="topBarAvatar" class="avatar">M</div>
+          <div class="user-info-text">
+            <div id="topBarUserName" class="user-name">Member Name</div>
+            <div id="topBarUserRole" class="user-role">Plan</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div id="dietContent">
+          <!-- Dynamically Populated 7-Day Matrix -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    const member = window.Auth.requireMember();
+    window.Auth.updateTopBar('My Diet Plan');
+
+    if (member) {
+      const dietPlans = window.DB.get(window.DB.KEYS.DIET_PLANS);
+
+      // Filter: member matches loggedInMember.name AND status === "Assigned"
+      const myAssignedPlans = dietPlans.filter(p => 
+        (p.member || '').toLowerCase() === member.name.toLowerCase() && 
+        p.status === 'Assigned'
+      );
+
+      const container = document.getElementById('dietContent');
+
+      if (myAssignedPlans.length === 0) {
+        container.innerHTML = `
+          <div class="card empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+            <h3>No diet plan assigned yet</h3>
+            <p>Your custom nutrition schedule will appear here as soon as your trainer assigns it.</p>
+          </div>
+        `;
+      } else {
+        // Select latest assigned plan
+        const latestPlan = myAssignedPlans[myAssignedPlans.length - 1];
+        const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        container.innerHTML = `
+          <div class="card" style="margin-bottom: 24px;">
+            <div class="card-header">
+              <div>
+                <span class="badge badge-assigned">Official Assigned Nutrition Plan</span>
+                <h2 style="font-size: 22px; font-weight: 800; margin-top: 6px;">7-Day Meal Guide for ${latestPlan.member} (${latestPlan.week || 'Week 1'})</h2>
+              </div>
+            </div>
+
+            <div class="meal-grid">
+              ${DAYS.map(day => {
+                const dayMeals = (latestPlan.meals && latestPlan.meals[day]) ? latestPlan.meals[day] : {};
+                return `
+                  <div class="meal-card">
+                    <div class="meal-day-title">${day}</div>
+                    <div class="meal-item"><div class="meal-type">Breakfast</div><div class="meal-content">${dayMeals['Breakfast'] || '-'}</div></div>
+                    <div class="meal-item"><div class="meal-type">Lunch</div><div class="meal-content">${dayMeals['Lunch'] || '-'}</div></div>
+                    <div class="meal-item"><div class="meal-type">Evening Snack</div><div class="meal-content">${dayMeals['Evening Snack'] || '-'}</div></div>
+                    <div class="meal-item"><div class="meal-type">Dinner</div><div class="meal-content">${dayMeals['Dinner'] || '-'}</div></div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - GYM PRO</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- ADMIN SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">GP</div>
+          <div class="brand-text">GYM <span>PRO</span></div>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item active">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="members.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span class="nav-text">Members</span>
+        </a>
+        <a href="plans.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span class="nav-text">Plans / Membership</span>
+        </a>
+        <a href="payments.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          <span class="nav-text">Payments</span>
+        </a>
+        <a href="workout.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 11v2M22 11v2"></path></svg>
+          <span class="nav-text">Workout</span>
+        </a>
+        <a href="diet.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          <span class="nav-text">Diet</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span class="nav-text">Reports</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="window.Auth.logout()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span class="logout-text">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h1 id="pageTitle" class="page-title">Admin Dashboard</h1>
+        <div class="user-profile-badge">
+          <div id="topBarAvatar" class="avatar">A</div>
+          <div class="user-info-text">
+            <div id="topBarUserName" class="user-name">Administrator</div>
+            <div id="topBarUserRole" class="user-role">System Admin</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- DYNAMIC STATS GRID -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Total Members</div>
+              <div id="statTotalMembers" class="stat-value">0</div>
+            </div>
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Active Members</div>
+              <div id="statActiveMembers" class="stat-value">0</div>
+            </div>
+            <div class="stat-icon green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Membership Plans</div>
+              <div id="statTotalPlans" class="stat-value">0</div>
+            </div>
+            <div class="stat-icon purple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Total Revenue</div>
+              <div id="statTotalRevenue" class="stat-value">₹0</div>
+            </div>
+            <div class="stat-icon amber">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Assigned Workouts</div>
+              <div id="statWorkouts" class="stat-value">0</div>
+            </div>
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 11v2M22 11v2"></path></svg>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Assigned Diets</div>
+              <div id="statDiets" class="stat-value">0</div>
+            </div>
+            <div class="stat-icon purple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECENT MEMBERS SECTION -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Recent Gym Members</h2>
+            <a href="members.html" class="btn btn-secondary btn-sm">View All Members &rarr;</a>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Member ID</th>
+                  <th>Name</th>
+                  <th>Plan</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentMembersTable">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- RECENT PAYMENTS SECTION -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Recent Payments</h2>
+            <a href="payments.html" class="btn btn-secondary btn-sm">Manage Payments &rarr;</a>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Receipt ID</th>
+                  <th>Member</th>
+                  <th>Plan</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentPaymentsTable">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    window.Auth.requireAdmin();
+    window.Auth.updateTopBar('Admin Dashboard');
+
+    function loadDashboardData() {
+      const members = window.DB.get(window.DB.KEYS.MEMBERS);
+      const plans = window.DB.get(window.DB.KEYS.PLANS);
+      const workouts = window.DB.get(window.DB.KEYS.WORKOUTS);
+      const dietPlans = window.DB.get(window.DB.KEYS.DIET_PLANS);
+      const payments = window.DB.get(window.DB.KEYS.PAYMENTS);
+
+      // Calculations
+      const activeMembers = members.filter(m => (m.status || '').toLowerCase() === 'active');
+      const assignedDiets = dietPlans.filter(d => d.status === 'Assigned');
+      const totalRevenue = payments.reduce((acc, curr) => curr.status === 'Paid' ? acc + (Number(curr.amount) || 0) : acc, 0);
+
+      // Update stat cards
+      document.getElementById('statTotalMembers').textContent = members.length;
+      document.getElementById('statActiveMembers').textContent = activeMembers.length;
+      document.getElementById('statTotalPlans').textContent = plans.length;
+      document.getElementById('statTotalRevenue').textContent = '₹' + totalRevenue.toLocaleString('en-IN');
+      document.getElementById('statWorkouts').textContent = workouts.length;
+      document.getElementById('statDiets').textContent = assignedDiets.length;
+
+      // Populate Recent Members Table
+      const membersTbody = document.getElementById('recentMembersTable');
+      if (members.length === 0) {
+        membersTbody.innerHTML = `<tr><td colspan="6" class="empty-state">No members found in system</td></tr>`;
+      } else {
+        membersTbody.innerHTML = members.slice(0, 5).map(m => `
+          <tr>
+            <td><strong>${m.id || 'MEM-N/A'}</strong></td>
+            <td>${m.name}</td>
+            <td>${m.plan || 'Standard'}</td>
+            <td>${m.phone}</td>
+            <td>${m.email}</td>
+            <td>
+              <span class="badge ${ (m.status || 'Active').toLowerCase() === 'active' ? 'badge-active' : 'badge-inactive' }">
+                ${m.status || 'Active'}
+              </span>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Populate Recent Payments Table
+      const paymentsTbody = document.getElementById('recentPaymentsTable');
+      if (payments.length === 0) {
+        paymentsTbody.innerHTML = `<tr><td colspan="6" class="empty-state">No payment records found</td></tr>`;
+      } else {
+        paymentsTbody.innerHTML = payments.slice(0, 5).map(p => `
+          <tr>
+            <td><strong>${p.id || 'PAY-N/A'}</strong></td>
+            <td>${p.member}</td>
+            <td>${p.plan}</td>
+            <td>₹${Number(p.amount).toLocaleString('en-IN')}</td>
+            <td>${p.date}</td>
+            <td>
+              <span class="badge ${ (p.status || 'Paid').toLowerCase() === 'paid' ? 'badge-paid' : 'badge-pending' }">
+                ${p.status || 'Paid'}
+              </span>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    loadDashboardData();
+  </script>
+</body>
+</html>

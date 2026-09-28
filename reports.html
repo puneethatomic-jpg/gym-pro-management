@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Reports - GYM PRO</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">GP</div>
+          <div class="brand-text">GYM <span>PRO</span></div>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="members.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+          <span class="nav-text">Members</span>
+        </a>
+        <a href="plans.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span class="nav-text">Plans / Membership</span>
+        </a>
+        <a href="payments.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          <span class="nav-text">Payments</span>
+        </a>
+        <a href="workout.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 11v2M22 11v2"></path></svg>
+          <span class="nav-text">Workout</span>
+        </a>
+        <a href="diet.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+          <span class="nav-text">Diet</span>
+        </a>
+        <a href="reports.html" class="nav-item active">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span class="nav-text">Reports</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="window.Auth.logout()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span class="logout-text">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h1 id="pageTitle" class="page-title">Reports & Analytics</h1>
+        <div class="user-profile-badge">
+          <div id="topBarAvatar" class="avatar">A</div>
+          <div class="user-info-text">
+            <div id="topBarUserName" class="user-name">Administrator</div>
+            <div id="topBarUserRole" class="user-role">System Admin</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- STATS OVERVIEW -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Total Revenue Collected</div>
+              <div id="repRevenue" class="stat-value">₹0</div>
+            </div>
+            <div class="stat-icon amber">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Active Membership Ratio</div>
+              <div id="repActiveRatio" class="stat-value">0%</div>
+            </div>
+            <div class="stat-icon green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Diet Assignment Ratio</div>
+              <div id="repDietRatio" class="stat-value">0%</div>
+            </div>
+            <div class="stat-icon purple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+          <!-- MEMBERSHIP PLAN POPULARITY BREAKDOWN -->
+          <div class="card">
+            <h3 class="card-title" style="margin-bottom: 16px;">Membership Plan Distribution</h3>
+            <div id="planBreakdownContainer">
+              <!-- Dynamically Populated Bars -->
+            </div>
+          </div>
+
+          <!-- PAYMENT STATUS BREAKDOWN -->
+          <div class="card">
+            <h3 class="card-title" style="margin-bottom: 16px;">Payment Status Summary</h3>
+            <div id="paymentStatusContainer">
+              <!-- Dynamically Populated Bars -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    window.Auth.requireAdmin();
+    window.Auth.updateTopBar('Reports & Analytics');
+
+    function renderReports() {
+      const members = window.DB.get(window.DB.KEYS.MEMBERS);
+      const plans = window.DB.get(window.DB.KEYS.PLANS);
+      const dietPlans = window.DB.get(window.DB.KEYS.DIET_PLANS);
+      const payments = window.DB.get(window.DB.KEYS.PAYMENTS);
+
+      // Total Revenue
+      const totalRev = payments.reduce((acc, curr) => curr.status === 'Paid' ? acc + Number(curr.amount) : acc, 0);
+      document.getElementById('repRevenue').textContent = '₹' + totalRev.toLocaleString('en-IN');
+
+      // Active Ratio
+      const activeCount = members.filter(m => (m.status || 'Active').toLowerCase() === 'active').length;
+      const activePct = members.length > 0 ? Math.round((activeCount / members.length) * 100) : 0;
+      document.getElementById('repActiveRatio').textContent = activePct + '%';
+
+      // Diet Ratio
+      const assignedDietsCount = dietPlans.filter(d => d.status === 'Assigned').length;
+      const dietPct = members.length > 0 ? Math.round((assignedDietsCount / members.length) * 100) : 0;
+      document.getElementById('repDietRatio').textContent = dietPct + '%';
+
+      // Plan Distribution Breakdown
+      const planCounts = {};
+      plans.forEach(p => planCounts[p.name] = 0);
+      members.forEach(m => {
+        if (m.plan) {
+          planCounts[m.plan] = (planCounts[m.plan] || 0) + 1;
+        }
+      });
+
+      const planContainer = document.getElementById('planBreakdownContainer');
+      const planKeys = Object.keys(planCounts);
+      if (planKeys.length === 0) {
+        planContainer.innerHTML = `<p class="text-muted">No plan data available</p>`;
+      } else {
+        planContainer.innerHTML = planKeys.map(planName => {
+          const count = planCounts[planName];
+          const pct = members.length > 0 ? Math.round((count / members.length) * 100) : 0;
+          return `
+            <div style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px;">
+                <span style="font-weight: 600;">${planName}</span>
+                <span style="color: var(--text-muted);">${count} Members (${pct}%)</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.06); height: 10px; border-radius: 5px; overflow: hidden;">
+                <div style="background: var(--accent-gradient); width: ${pct}%; height: 100%; border-radius: 5px;"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Payment Status Breakdown
+      const payStatusCounts = { Paid: 0, Pending: 0, Overdue: 0 };
+      payments.forEach(p => {
+        const st = p.status || 'Paid';
+        payStatusCounts[st] = (payStatusCounts[st] || 0) + 1;
+      });
+
+      const payContainer = document.getElementById('paymentStatusContainer');
+      const payKeys = Object.keys(payStatusCounts);
+      payContainer.innerHTML = payKeys.map(st => {
+        const count = payStatusCounts[st];
+        const pct = payments.length > 0 ? Math.round((count / payments.length) * 100) : 0;
+        const color = st === 'Paid' ? '#10b981' : st === 'Pending' ? '#f59e0b' : '#ef4444';
+        return `
+          <div style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px;">
+              <span style="font-weight: 600;">${st}</span>
+              <span style="color: var(--text-muted);">${count} Transactions (${pct}%)</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); height: 10px; border-radius: 5px; overflow: hidden;">
+              <div style="background: ${color}; width: ${pct}%; height: 100%; border-radius: 5px;"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    renderReports();
+  </script>
+</body>
+</html>

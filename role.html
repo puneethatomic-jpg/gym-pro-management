@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GYM PRO - Gym Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .hero-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 30px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: var(--accent-blue);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      max-width: 700px;
+    }
+
+    .hero-title span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto 48px auto;
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+      gap: 28px;
+      justify-content: center;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .role-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-main);
+    }
+
+    .role-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.3);
+    }
+
+    .role-icon-box {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .role-card.user-card .role-icon-box {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--accent-purple);
+    }
+
+    .role-card:hover .role-icon-box {
+      transform: scale(1.1);
+    }
+
+    .role-card h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .role-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .role-btn {
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .footer-note {
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container">
+    <div class="hero-badge">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      Next-Gen Fitness Platform
+    </div>
+
+    <h1 class="hero-title">
+      Welcome to <span>GYM PRO</span> Management System
+    </h1>
+    <p class="hero-subtitle">
+      Comprehensive digital dashboard solution for gym administrators and members. Choose your portal to log in.
+    </p>
+
+    <div class="roles-grid">
+      <!-- ADMIN LOGIN CARD -->
+      <a href="admin-login.html" class="role-card admin-card">
+        <div class="role-icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h2>Admin Portal</h2>
+        <p>Manage members, membership plans, payments, diet & workout schedules</p>
+        <span class="btn btn-primary role-btn">Admin Login &rarr;</span>
+      </a>
+
+      <!-- MEMBER LOGIN CARD -->
+      <a href="user-login.html" class="role-card user-card">
+        <div class="role-icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <h2>Member Portal</h2>
+        <p>View personal workouts, 7-day meal plans, membership status & progress</p>
+        <span class="btn btn-secondary role-btn" style="background: var(--accent-gradient); color: #fff;">Member Login &rarr;</span>
+      </a>
+    </div>
+
+    <div class="footer-note">
+      Diploma CSE Final Year College Project Demonstration &bull; Powered by GYM PRO
+    </div>
+  </div>
+</body>
+</html>

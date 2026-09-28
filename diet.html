@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diet Plan Management - GYM PRO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .day-meal-group {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .day-meal-group h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="brand-logo">
+          <div class="brand-icon">GP</div>
+          <div class="brand-text">GYM <span>PRO</span></div>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="members.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+          <span class="nav-text">Members</span>
+        </a>
+        <a href="plans.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span class="nav-text">Plans / Membership</span>
+        </a>
+        <a href="payments.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          <span class="nav-text">Payments</span>
+        </a>
+        <a href="workout.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 11v2M22 11v2"></path></svg>
+          <span class="nav-text">Workout</span>
+        </a>
+        <a href="diet.html" class="nav-item active">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+          <span class="nav-text">Diet</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span class="nav-text">Reports</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="window.Auth.logout()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span class="logout-text">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h1 id="pageTitle" class="page-title">Diet Plan Management</h1>
+        <div class="user-profile-badge">
+          <div id="topBarAvatar" class="avatar">A</div>
+          <div class="user-info-text">
+            <div id="topBarUserName" class="user-name">Administrator</div>
+            <div id="topBarUserRole" class="user-role">System Admin</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="toolbar">
+          <div class="search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search diet plans by member name..." oninput="renderDietPlans()">
+          </div>
+
+          <button class="btn btn-primary" onclick="openDietModal()">
+            + Create 7-Day Diet Plan
+          </button>
+        </div>
+
+        <div id="dietPlansList">
+          <!-- Dynamically Populated Cards -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- DIET PLAN BUILDER MODAL -->
+  <div id="dietModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3 id="dietModalTitle" class="modal-title">Create 7-Day Diet Plan</h3>
+        <button class="close-modal" onclick="closeDietModal()">&times;</button>
+      </div>
+
+      <form id="dietForm">
+        <input type="hidden" id="dietId">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="dMember">Select Member</label>
+            <select id="dMember" class="form-control" required>
+              <!-- Options populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="dWeek">Week</label>
+            <select id="dWeek" class="form-control" required>
+              <option value="Week 1">Week 1</option>
+              <option value="Week 2">Week 2</option>
+              <option value="Week 3">Week 3</option>
+              <option value="Week 4">Week 4</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="dStatus">Plan Status</label>
+            <select id="dStatus" class="form-control" required>
+              <option value="Saved">Saved (Draft)</option>
+              <option value="Assigned">Assigned (Published to Member)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h4 style="font-size: 16px; font-weight: 700;">7-Day Meal Schedule Details</h4>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="copyPreviousDayMeal()">Copy Monday to All Days</button>
+        </div>
+
+        <div id="daysContainer" style="max-height: 50vh; overflow-y: auto; padding-right: 8px;">
+          <!-- Mon-Sun Inputs generated dynamically -->
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+          <button type="button" class="btn btn-secondary" onclick="closeDietModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save & Assign Plan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    window.Auth.requireAdmin();
+    window.Auth.updateTopBar('Diet Plan Management');
+
+    const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const MEAL_TYPES = ['Breakfast', 'Lunch', 'Evening Snack', 'Dinner'];
+
+    function renderDayInputs() {
+      const container = document.getElementById('daysContainer');
+      container.innerHTML = DAYS.map(day => `
+        <div class="day-meal-group">
+          <h4>${day}</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label class="form-label">Breakfast</label>
+              <input type="text" id="${day}_Breakfast" class="form-control" placeholder="e.g. Oatmeal & Eggs" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label class="form-label">Lunch</label>
+              <input type="text" id="${day}_Lunch" class="form-control" placeholder="e.g. Grilled Chicken & Rice" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Evening Snack</label>
+              <input type="text" id="${day}_Evening_Snack" class="form-control" placeholder="e.g. Protein Shake & Nuts" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Dinner</label>
+              <input type="text" id="${day}_Dinner" class="form-control" placeholder="e.g. Fish / Paneer Salad" required>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function copyPreviousDayMeal() {
+      const monB = document.getElementById('Monday_Breakfast').value;
+      const monL = document.getElementById('Monday_Lunch').value;
+      const monS = document.getElementById('Monday_Evening_Snack').value;
+      const monD = document.getElementById('Monday_Dinner').value;
+
+      DAYS.forEach(day => {
+        if (day !== 'Monday') {
+          document.getElementById(`${day}_Breakfast`).value = monB;
+          document.getElementById(`${day}_Lunch`).value = monL;
+          document.getElementById(`${day}_Evening_Snack`).value = monS;
+          document.getElementById(`${day}_Dinner`).value = monD;
+        }
+      });
+    }
+
+    function renderDietPlans() {
+      const dietPlans = window.DB.get(window.DB.KEYS.DIET_PLANS);
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+
+      const filtered = dietPlans.filter(d => (d.member || '').toLowerCase().includes(query));
+
+      const container = document.getElementById('dietPlansList');
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="card empty-state"><h3>No diet plans created yet</h3><p>Click "Create 7-Day Diet Plan" to design a nutrition guide for members.</p></div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(plan => `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="badge ${plan.status === 'Assigned' ? 'badge-assigned' : 'badge-saved'}">${plan.status}</span>
+              <h3 style="font-size: 20px; font-weight: 700; margin-top: 6px;">Diet Plan for ${plan.member} (${plan.week || 'Week 1'})</h3>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn btn-secondary btn-sm" onclick="editDietPlan('${plan.id}')">Edit Plan</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteDietPlan('${plan.id}')">Delete</button>
+            </div>
+          </div>
+
+          <div class="meal-grid">
+            ${DAYS.map(day => {
+              const meals = plan.meals ? plan.meals[day] || {} : {};
+              return `
+                <div class="meal-card">
+                  <div class="meal-day-title">${day}</div>
+                  <div class="meal-item"><div class="meal-type">Breakfast</div><div class="meal-content">${meals['Breakfast'] || '-'}</div></div>
+                  <div class="meal-item"><div class="meal-type">Lunch</div><div class="meal-content">${meals['Lunch'] || '-'}</div></div>
+                  <div class="meal-item"><div class="meal-type">Evening Snack</div><div class="meal-content">${meals['Evening Snack'] || '-'}</div></div>
+                  <div class="meal-item"><div class="meal-type">Dinner</div><div class="meal-content">${meals['Dinner'] || '-'}</div></div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openDietModal() {
+      const members = window.DB.get(window.DB.KEYS.MEMBERS);
+      const select = document.getElementById('dMember');
+
+      if (members.length === 0) {
+        alert('Please create members first before assigning diet plans.');
+        return;
+      }
+
+      select.innerHTML = members.map(m => `<option value="${m.name}">${m.name} (${m.plan})</option>`).join('');
+      document.getElementById('dietForm').reset();
+      document.getElementById('dietId').value = '';
+      document.getElementById('dietModalTitle').textContent = 'Create 7-Day Diet Plan';
+      renderDayInputs();
+      document.getElementById('dietModal').classList.add('show');
+    }
+
+    function editDietPlan(id) {
+      const plans = window.DB.get(window.DB.KEYS.DIET_PLANS);
+      const plan = plans.find(p => p.id === id);
+      if (!plan) return;
+
+      openDietModal();
+      document.getElementById('dietId').value = plan.id;
+      document.getElementById('dietModalTitle').textContent = 'Edit 7-Day Diet Plan';
+      document.getElementById('dMember').value = plan.member;
+      document.getElementById('dWeek').value = plan.week || 'Week 1';
+      document.getElementById('dStatus').value = plan.status || 'Assigned';
+
+      if (plan.meals) {
+        DAYS.forEach(day => {
+          const m = plan.meals[day] || {};
+          if (document.getElementById(`${day}_Breakfast`)) document.getElementById(`${day}_Breakfast`).value = m['Breakfast'] || '';
+          if (document.getElementById(`${day}_Lunch`)) document.getElementById(`${day}_Lunch`).value = m['Lunch'] || '';
+          if (document.getElementById(`${day}_Evening_Snack`)) document.getElementById(`${day}_Evening_Snack`).value = m['Evening Snack'] || '';
+          if (document.getElementById(`${day}_Dinner`)) document.getElementById(`${day}_Dinner`).value = m['Dinner'] || '';
+        });
+      }
+    }
+
+    function closeDietModal() {
+      document.getElementById('dietModal').classList.remove('show');
+    }
+
+    function deleteDietPlan(id) {
+      if (confirm('Delete this diet plan?')) {
+        let plans = window.DB.get(window.DB.KEYS.DIET_PLANS);
+        plans = plans.filter(p => p.id !== id);
+        window.DB.set(window.DB.KEYS.DIET_PLANS, plans);
+        renderDietPlans();
+      }
+    }
+
+    document.getElementById('dietForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const id = document.getElementById('dietId').value;
+      let plans = window.DB.get(window.DB.KEYS.DIET_PLANS);
+
+      const mealsData = {};
+      DAYS.forEach(day => {
+        mealsData[day] = {
+          Breakfast: document.getElementById(`${day}_Breakfast`).value.trim(),
+          Lunch: document.getElementById(`${day}_Lunch`).value.trim(),
+          'Evening Snack': document.getElementById(`${day}_Evening_Snack`).value.trim(),
+          Dinner: document.getElementById(`${day}_Dinner`).value.trim()
+        };
+      });
+
+      const dietObj = {
+        id: id || 'diet_' + Date.now(),
+        member: document.getElementById('dMember').value,
+        week: document.getElementById('dWeek').value,
+        planType: '7-Day Plan',
+        status: document.getElementById('dStatus').value,
+        meals: mealsData
+      };
+
+      if (id) {
+        const idx = plans.findIndex(p => p.id === id);
+        if (idx !== -1) plans[idx] = dietObj;
+      } else {
+        plans.push(dietObj);
+      }
+
+      window.DB.set(window.DB.KEYS.DIET_PLANS, plans);
+      closeDietModal();
+      renderDietPlans();
+    });
+
+    renderDietPlans();
+  </script>
+</body>
+</html>
